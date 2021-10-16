@@ -56,6 +56,7 @@ Step 4 ':wq' and then enter <br/>
 it ask you to  choose comment to keep : add  # before comment that you don't like to keep <br/> 
 Step 5: git push -f origin YOUR_BRANCH <br/> 
 ## Git Flow
+
 ### Release Delivery Steps 
 (Example from develop with version 1.0.0-SNAPSHOT) : <br/>
 Step 1 : mvn clean install <br/>

@@ -56,7 +56,7 @@ Step 4 ':wq' and then enter <br/>
 it ask you to  choose comment to keep : add  # before comment that you don't like to keep <br/> 
 Step 5: git push -f origin YOUR_BRANCH <br/> 
 ## Git Flow
-<h2>Release Delivery Steps </h2> 
+### Release Delivery Steps 
 (Example from develop with version 1.0.0-SNAPSHOT) : <br/>
 Step 1 : mvn clean install <br/>
 Step 2 : git flow release start v1.0.0 (it will create new branch release/v1.0.0 and checkout this branch) <br/>
@@ -74,7 +74,7 @@ Step 13 : git checkout master <br/>
 Step 14 : git push origin master <br/>
 
 
-<h2>hotfix Delivery Steps <h2> 
+### Hotfix Delivery Steps 
 (Example from master with version : 1.0.0) : <br/> 
 
 Step 1 : git flow hotfix start v1.0.1 <br/>

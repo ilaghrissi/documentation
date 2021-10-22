@@ -48,6 +48,8 @@
 </table>
 
 <h3>Delete multiple commits</h3>
+Pre-Step : git checkout develop <br/>
+    git pull -r<br/>
 Step 1: git checkout YOUR_BRANCH <br/>
 Step 2 : git rebase -i develop <br/>
 remove 'pick' and add 's' before commit to delete <br/>

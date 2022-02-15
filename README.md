@@ -48,6 +48,8 @@
 </table>
 
 <h3>Delete multiple commits</h3>
+Pre-Step : git checkout develop <br/>
+    git pull -r<br/>
 Step 1: git checkout YOUR_BRANCH <br/>
 Step 2 : git rebase -i develop <br/>
 remove 'pick' and add 's' before commit to delete <br/>
@@ -91,6 +93,69 @@ Step 9 : git push origin develop (it will push also tag v1.0.1) <br/>
 Step 10 : git push origin master <br/>
 Step 11 : git push origin --tags <br/>
 
+## Spring Boot Maven Plugin
+<table>
+<thead>
+  <tr>
+    <th>Command</th>
+    <th>Description</th>
+  </tr>
+<thead>
+<tbody>
+  <tr>
+    <td>mvn spring-boot:run</td>
+    <td>Run Spring boot application</td>
+  </tr>
+  <tr>
+    <td>mvn spring-boot:run -Dspring-boot.run.profiles=local</td>
+    <td>Run Spring boot application with profile local</td>
+  </tr>
+   <tr>
+      <td>mvn spring-boot:run -Dspring-boot.run.profiles=local,dev</td>
+      <td>Run Spring boot application with multiple profiles local and dev</td>
+   </tr>
+   <tr>
+      <td>mvn spring-boot:run -Dspring-boot.run.profiles=local -Dspring.config.location=file:///C://dev/application.config.properties</td>
+      <td>Run Spring boot application with profile local and override configs (only take external configs internal will not be token) </td>
+   </tr>
+   <tr>
+     <td>mvn spring-boot:run -Dspring-boot.run.profiles=local -Dspring.config.additional-location=file:///C://dev/application.config.properties</td>
+     <td>Run Spring boot application with profile local and add additional configs (internal and external will be token if the same config priority  to external) </td>
+   </tr>
+</tbody>
+</table>
+
+## Run spring boot application with java command
+<table>
+<thead>
+  <tr>
+    <th>Command</th>
+    <th>Description</th>
+  </tr>
+<thead>
+<tbody>
+  <tr>
+    <td>java -jar app.jar</td>
+    <td>Run Spring boot application</td>
+  </tr>
+  <tr>
+    <td>java -jar app.jar --spring.profiles.active=local</td>
+    <td>Run Spring boot application with profile local</td>
+  </tr>
+   <tr>
+    <td>java -jar app.jar --spring.profiles.active="local,dev"</td>
+    <td>Run Spring boot application with multiple profiles local and dev</td>
+   </tr>
+   <tr>
+      <td>java -jar app.jar --spring.profiles.active=local --spring.config.location=file:///C://dev/application.config.properties</td>
+      <td>Run Spring boot application with profile local and override configs (only take external configs internal will not be token) </td>
+   </tr>
+   <tr>
+     <td>java -jar app.jar --spring.profiles.active=local --spring.config.additional-location=file:///C://dev/application.config.properties</td>
+     <td>Run Spring boot application with profile local and add additional configs (internal and external will be token if the same config priority  to external) </td>
+   </tr>  
+</tbody>
+</table>
 
 ## show server logs
 <pre>

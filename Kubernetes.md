@@ -60,3 +60,21 @@ kube-node-lease   Active   30h     kubernetes.io/metadata.name=kube-node-lease
 kube-public       Active   30h     kubernetes.io/metadata.name=kube-public
 kube-system       Active   30h     kubernetes.io/metadata.name=kube-system
 </pre>
+
+
+### 2- pods
+Pod : is a collection of containers and its storage inside a node of kubernetes cluster
+<br/>
+we can create a : 
+Pod with one container 
+<br/>
+Pod with multiple containers, for example keeping database container and data container in the same pod
+
+<pre>
+kubectl run "name of pod" --image="name of the image from registry"
+</pre>
+
+Example :
+<pre>
+kubectl run tomcat --image tomcat:8.0
+</pre>

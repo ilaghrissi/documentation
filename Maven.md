@@ -1,4 +1,6 @@
-Maven 
+# Maven 
+
+## Project with multiple modules
 
 ```mermaid
 graph TD;

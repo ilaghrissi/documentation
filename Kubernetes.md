@@ -1,8 +1,17 @@
 # Kubernetes
 
+
+
+
+## Kubernetes Commands
+
 ### 1.namespace 
 
 ### 2.pod
+pod can be a : 
+- Group of containers that are completely isolated and share certain resources
+- Allow you to run multiple processes into a single container
+- So you bind containers together and manage them as a single unit.
 
     kubectl get pods
 

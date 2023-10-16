@@ -1,6 +1,36 @@
 # Spring boot
 
+### Spring boot features
+- Fast bootstrapping 
+- Autoconfiguration 
+- Opinionated
+- Standalone
+- Production-ready
+
+### Spring Boot components
+- spring-boot
+- spring-boot-autoconfigure
+- spring-boot-starters
+- spring-boot-CLI
+- spring-boot-actuator
+- spring-boot-actuator-autoconfigure
+- spring-boot-test
+- spring-boot-test-autoconfigure
+- spring-boot-loader
+- spring-boot-devtools
+
 ## Spring Boot Maven Plugin
+To use Spring Boot Maven Plugin you have to add the following code in pom.xml of your project :
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 
 | Command                                                                                                                                | Description                                                                                                                                              |
 |----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|

@@ -23,8 +23,118 @@ This is Java 8 features :
 
 
 #### Stream API 
-#####  reduce() Method
-#####  collect() Method
+#### Filtering
+#### Slicing
+##### takeWhile
+        
+    var user1 = new User(1,"test 1");
+    var user2 = new User(3,"test 2");
+    var user3 = new User(2,"test 3");
+    var user4 = new User(4,"test 4");
+
+    var userList = List.of(user1,user2, user3,user4);
+    userList.stream()
+        .takeWhile( u -> u.id()<3)
+        .forEach(s->System.out.println(s.id()));  // show 1
+
+##### dropWhile
+
+    System.out.println("result dropWhile is ");
+    userList.stream()
+        .dropWhile(u -> u.id()<3).forEach(s->System.out.println(s.id())); // dropWhile is complement of takeWhile
+    // show 3, 2, 4
+
+##### limit
+
+    System.out.println("result limit is ");
+    userList.stream()
+        .limit(3)
+        .forEach(s->System.out.println(s.id())); // show 1, 3, 2
+
+
+##### skip
+
+    System.out.println("result skip is ");
+    userList.stream()
+        .skip(2)
+        .forEach(s->System.out.println(s.id())); // show 2, 4
+
+
+#### Mapping
+##### map
+##### FlatMap
+
+#### Finding and Matching
+##### allMatch
+check if predicate matches all elements
+
+    var user1 = new User(1,"test 1",22);
+    var user2 = new User(3,"test 2",26);
+    var user3 = new User(2,"test 3",24);
+    var user4 = new User(4,"test 4",28);
+
+    var userList = List.of(user1,user2, user3,user4);
+    userList.stream().allMatch(u-> u.age()>25) // false
+
+##### noneMatch
+opposite of allMatch, check if no elements in the stream match the given predicate
+
+    userList.stream().noneMatch(u-> u.age()>29)) // true
+
+##### findAny
+perform single element and finish as soon as a result is found
+
+    userList.stream()
+        .filter(u-> u.age()>24)
+        .findAny().get()); // User[id=3, name=test 2, age=26]
+
+##### findFirst
+the same as findAny, but findAny use parallel stream
+
+#####  Reducing 
+
+###### Example 1 : Numbers
+Sum of numbers :
+
+    List<Integer> numbers = Arrays.asList(3,2,1,9,4);
+    numbers.stream().reduce(0, (v,w)-> v + w); // return 19
+    numbers.stream().reduce(Integer::sum) // or this return also 19
+
+Min value :
+
+    numbers.stream().reduce(Integer::min) // returnOptional[1]
+
+Max value :
+    
+    numbers.stream().reduce(Integer::max) // return  Optional[9]
+
+NB : to calculate AVG you can use other methods in java 8
+  
+    numbers.stream().mapToInt(x -> x).average().getAsDouble();
+    numbers.stream().mapToInt(x -> x).summaryStatistics().getAverage();
+    userList.stream().mapToInt(x -> x.age()).summaryStatistics().getAverage())
+
+###### Example 2 : String
+concat string :
+
+    List<String> letters = Arrays.asList("h","e","l","l","o");
+    letters.stream().reduce("", (v,w)-> v+w);  // return hello
+    letters.stream().reduce(String::concat); // return Optional[hello]
+
+
+#####  sorted
+
+    List<String> letters = Arrays.asList("h","e","l","l","o");
+    letters.stream().sorted().forEach(System.out::println); // return e, h, l, l, o
+    letters.stream().sorted(Comparator.naturalOrder()).forEach(System.out::println); // ASC return e, h, l, l, o
+    letters.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println); // DESC return o, l, l, h, e
+
+####  collecting
+#####  collectors
+#####  reducing and summarizing
+#####  grouping
+#####  partitioning
+
 
 ### Java 9 (published September 2017)
 

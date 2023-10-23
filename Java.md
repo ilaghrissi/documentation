@@ -1,31 +1,113 @@
+<!-- TOC -->
+* [Java](#java)
+  * [Introduction](#introduction)
+  * [Java 8](#java-8)
+    * [Functional interface](#functional-interface)
+    * [Lambda expressions](#lambda-expressions)
+    * [Optional](#optional)
+    * [Default methods](#default-methods)
+    * [forEach Method](#foreach-method)
+    * [DateTime API](#datetime-api)
+    * [Default methods](#default-methods-1)
+    * [Static methods in interface](#static-methods-in-interface)
+    * [Nashorn JavaScript engine](#nashorn-javascript-engine)
+    * [Method references](#method-references)
+    * [Concurrency API improvements](#concurrency-api-improvements)
+    * [Stream API](#stream-api)
+      * [Filtering](#filtering)
+      * [Slicing](#slicing)
+        * [takeWhile](#takewhile)
+        * [dropWhile](#dropwhile)
+        * [limit](#limit)
+        * [skip](#skip)
+      * [Mapping](#mapping)
+        * [map](#map)
+        * [FlatMap](#flatmap)
+      * [Finding and Matching](#finding-and-matching)
+        * [allMatch](#allmatch)
+        * [noneMatch](#nonematch)
+        * [findAny](#findany)
+        * [findFirst](#findfirst)
+      * [Reducing](#reducing)
+          * [Example 1 : Numbers](#example-1--numbers)
+          * [Example 2 : String](#example-2--string)
+        * [sorted](#sorted)
+      * [collecting](#collecting)
+        * [collectors](#collectors)
+        * [reducing and summarizing](#reducing-and-summarizing)
+        * [grouping](#grouping)
+        * [partitioning](#partitioning)
+    * [Collection API improvements](#collection-api-improvements)
+      * [Collection factories](#collection-factories)
+      * [removeIf](#removeif)
+      * [replaceAll](#replaceall)
+    * [Java 9 (published September 2017)](#java-9--published-september-2017-)
+    * [Java 10 (published March 2018)](#java-10--published-march-2018-)
+      * [Type inference](#type-inference)
+    * [Java 11 (published September 2018)](#java-11--published-september-2018-)
+      * [Type inference in lambda expression](#type-inference-in-lambda-expression)
+      * [New methods to the String class](#new-methods-to-the-string-class)
+    * [Java 12 (published March 2019)](#java-12--published-march-2019-)
+    * [Java 13 (published September 2019)](#java-13--published-september-2019-)
+    * [Java 14 (published March 2020)](#java-14--published-march-2020-)
+    * [Java 15 (published September 2020)](#java-15--published-september-2020-)
+      * [1. Record](#1-record)
+      * [2. Sealed](#2-sealed)
+      * [3. Hidden](#3-hidden)
+      * [4. Pattern Matching Type Checks](#4-pattern-matching-type-checks)
+    * [Java 16 (published March 2021)](#java-16--published-march-2021-)
+    * [Java 17 (published September 2021)](#java-17--published-september-2021-)
+  * [Most used Operation Java](#most-used-operation-java)
+    * [Convert String to int](#convert-string-to-int)
+    * [Convert String to an Integer](#convert-string-to-an-integer)
+    * [Convert int to String](#convert-int-to-string)
+    * [Convert List to Map](#convert-list-to-map)
+    * [Convert Map to List](#convert-map-to-list)
+    * [Convert List to Set](#convert-list-to-set)
+    * [Convert Set to List](#convert-set-to-list)
+  * [Java questions](#java-questions)
+    * [What is the difference between Checked vs Unchecked Exceptions in Java ?](#what-is-the-difference-between-checked-vs-unchecked-exceptions-in-java-)
+      * [- Checked Exception :](#--checked-exception-)
+      * [- UnChecked Exception :](#--unchecked-exception-)
+<!-- TOC -->
+
+
+
+
+
 # Java
-
-## Java features with examples :
-
-### Java 8
+## Introduction
+In this article we will list Java Features by version 
+## Java 8
 This is Java 8 features :
+### Functional interface
 
-**[Functional interface](#functional-interface)**<br>
-**[Lambda expressions](#lambda-expressions)**<br>
+| Type      | Abstract Method | Argument | Return  |
+|-----------|-----------------|----------|---------|
+| Predicate | test (T)        | Yes      | boolean |
+| Function  | apply (T)       | Yes      | R       |
+| Consumer  | accept (T)      | Yes      | void    |
+| Supplier  | get()           | No       | T       |
 
-- Optional
-- Default methods
-- Stream API
-- forEach Method
-- DateTime API
-- Default methods
-- Static methods in interface : Similar to Default Method in Interface, the static method in an interface can be defined in the interface, but cannot be overridden in Implementation Classes
-- Nashorn JavaScript engine
-- Method references : is used to refer method of Functional interface, There are following types of method references :
+### Lambda expressions
+### Optional
+### Default methods
+### forEach Method
+### DateTime API
+### Default methods
+### Static methods in interface 
+Similar to Default Method in Interface, the static method in an interface can be defined in the interface, but cannot be overridden in Implementation Classes
+### Nashorn JavaScript engine
+### Method references 
+is used to refer method of Functional interface, There are following types of method references :
   - Reference to a static method.
   - Reference to an instance method.
   - Reference to a constructor.
-- Concurrency API improvements
-- Collection API improvements
+### Concurrency API improvements
 
-## Functional interface
 
-#### Stream API 
+
+### Stream API 
 #### Filtering
 #### Slicing
 ##### takeWhile
@@ -94,7 +176,7 @@ perform single element and finish as soon as a result is found
 ##### findFirst
 the same as findAny, but findAny use parallel stream
 
-#####  Reducing 
+####  Reducing 
 
 ###### Example 1 : Numbers
 Sum of numbers :
@@ -138,6 +220,12 @@ concat string :
 #####  grouping
 #####  partitioning
 
+### Collection API improvements
+#### Collection factories
+
+#### removeIf
+
+#### replaceAll
 
 ### Java 9 (published September 2017)
 

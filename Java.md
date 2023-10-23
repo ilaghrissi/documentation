@@ -4,8 +4,10 @@
 
 ### Java 8
 This is Java 8 features :
-- Functional interface
-- Lambda expressions
+
+**[Functional interface](#functional-interface)**<br>
+**[Lambda expressions](#lambda-expressions)**<br>
+
 - Optional
 - Default methods
 - Stream API
@@ -21,6 +23,7 @@ This is Java 8 features :
 - Concurrency API improvements
 - Collection API improvements
 
+## Functional interface
 
 #### Stream API 
 #### Filtering
@@ -102,7 +105,7 @@ Sum of numbers :
 
 Min value :
 
-    numbers.stream().reduce(Integer::min) // returnOptional[1]
+    numbers.stream().reduce(Integer::min) // return Optional[1]
 
 Max value :
     

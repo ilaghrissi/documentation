@@ -58,11 +58,16 @@
       * [Type inference in lambda expression](#type-inference-in-lambda-expression)
       * [New methods to the String class](#new-methods-to-the-string-class)
     * [Java 12 (published March 2019)](#java-12--published-march-2019-)
+      * [Switch Expressions](#switch-expressions)
     * [Java 13 (published September 2019)](#java-13--published-september-2019-)
     * [Java 14 (published March 2020)](#java-14--published-march-2020-)
     * [Java 15 (published September 2020)](#java-15--published-september-2020-)
       * [1. Record](#1-record)
       * [2. Sealed](#2-sealed)
+        * [Sealed Interfaces](#sealed-interfaces)
+        * [Sealed classes](#sealed-classes)
+        * [Sealed records](#sealed-records)
+        * [Reflection support](#reflection-support)
       * [3. Hidden](#3-hidden)
       * [4. Pattern Matching Type Checks](#4-pattern-matching-type-checks)
     * [Java 16 (published March 2021)](#java-16--published-march-2021-)
@@ -343,14 +348,131 @@ Example :
     List<String> lines = multilineString.lines()
     .filter(line -> !line.isBlank())
     .map(String::strip)
-    .collect(Collectors.toList());
+    .collect(Collectors.toList()); // return "New example ", "for java ", "developers."
 
     assertThat(lines).containsExactly("New example ", "for java ", "developers.");
 
 
 ### Java 12 (published March 2019)
+#### Switch Expressions
+- Multiple case labels
+- Switch expression returning value via break (replaced with yield in Java 13 switch expressions)
+  - Switch expression returning value via label rules (arrow)
 
+- Before : traditional switch
+ 
+
+
+      private static String getTextBefore12(int number) {
+          String result = "";
+          switch (number) {
+                  case 1:
+                  case 2:
+                      result = "one or two";
+                      break;
+                  case 3:
+                      result = "three";
+                      break;
+                  case 4:
+                  case 5:
+                  case 6:
+                      result = "four or five or six";
+                      break;
+                  default:
+                      result = "unknown";
+              };
+              return result;
+              }
+      }
+- After : Multiple case
+
+
+    private static String getTextMultipleLabels(int number) {
+    String result = "";
+    switch (number) {
+          case 1, 2:
+          result = "one or two";
+          break;
+          case 3:
+          result = "three";
+          break;
+          case 4, 5, 6:
+          result = "four or five or six";
+          break;
+          default:
+          result = "unknown";
+    };
+          return result;
+    }
+
+- Return value via Break
+
+
+      private static String getTextViaBreak(int number) {
+        String result = switch (number) {
+            case 1:
+            case 2:
+                break "one or two"; 
+            case 3:
+                break "three";
+            case 4:
+            case 5:
+            case 6:
+                break "four or five or six";
+            default:
+                break "unknown";
+        };
+        return result;
+    }
+
+- Return value via Arrow
+
+
+      boolean isWeekend(String day){
+          return  switch (day){
+            case "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY" -> false;
+            case "SATURDAY", "SUNDAY" -> true;
+            default -> throw new IllegalArgumentException();
+          };
+      }
 ### Java 13 (published September 2019)
+- adding a new **yield** keyword to return a value from the switch expression.
+- Before : return value with break
+
+      private static int getValueViaBreak(String mode) {
+      int result = switch (mode) {
+          case "a":
+          case "b":
+              break 1;
+          case "c":
+              break 2;
+          case "d":
+          case "e":
+          case "f":
+              break 3;
+          default:
+              break -1;
+      };
+      return result;
+    }
+  - After : return value with yield
+  
+
+      private static int getValueViaYield(String mode) {
+      int result = switch (mode) {
+          case "a", "b":
+          yield 1;
+          case "c":
+          yield 2;
+          case "d", "e", "f":
+          // do something here...
+          System.out.println("Supports multi line block!");
+          yield 3;
+          default:
+          yield -1;
+      };
+      return result;
+      }
 
 ### Java 14 (published March 2020)
 
@@ -383,7 +505,75 @@ A record class without any constructor declarations is automatically given a can
     }
 
 #### 2. Sealed
+- Sealing allows classes and interfaces to define their permitted subtypes
+- A sealed class allows you to restrict or choose its sub-classes. A class can not extend a sealed class, if it is not in the list of permitted child classes of parent class.
+- Before A final class can have no subclasses. A package-private class can only have subclasses in the same package.
 
+##### Sealed Interfaces
+sealed interfaces allows you specifies the classes that are permitted to implement the sealed interface
+- Example
+
+      public sealed interface Service permits Teacher, Student {
+    
+      int getName();
+    
+      default String getDepartement() {
+        return "IT department";
+      }
+    
+    }
+
+##### Sealed classes
+- Example : Person can only be extended by Teacher and Student classes
+
+  
+    public sealed class Person permits Teacher, Student {
+    }
+
+- A class that extends a sealed class (Computer, Mobile) must have either final, sealed or non-sealed keyword in its declaration
+- This is because by making a child class :
+  1. **final** means, that it cannot be sub-classed further.
+  2. **sealed** means, that we need to declare child classes with permits.
+  3. **non-sealed** means, that we are ending the parent-child hierarchy here.
+
+Teacher
+
+    public final class Teacher extends Person implements Service {
+
+    private final int salary;
+    }
+
+
+Student
+
+    public non-sealed class Student extends Person implements Service {
+
+    private final String course;
+
+
+##### Sealed records
+- A record can not extend a normal class, so it can only implement a sealed interface
+- a record is implicitly final
+
+
+    public sealed interface Device permits Laptop {
+    }
+
+    public record Laptop(String brand) implement Device {
+    }
+
+##### Reflection support
+java reflection provides support for sealed classes. Following two methods
+1. getPermittedSubclasses() : It returns an array of java.lang.Class containing all the classes permitted by this class object <br/>
+Example : 
+
+   
+    Class<?>[] permittedSubclasses = p.getClass().getPermittedSubclasses();
+    for (Class<?> sc : permittedSubclasses){
+    System.out.println(sc.getName());
+    }
+
+2. isSealed() : It returns true if the class or interface on which it is called is sealed.
 #### 3. Hidden
 
 

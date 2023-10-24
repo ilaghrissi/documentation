@@ -1,7 +1,7 @@
 <!-- TOC -->
 * [Java](#java)
   * [Introduction](#introduction)
-  * [Java 8](#java-8)
+  * [Java 8 (published March 2014)](#java-8--published-march-2014-)
     * [Functional interface](#functional-interface)
     * [Lambda expressions](#lambda-expressions)
     * [Optional](#optional)
@@ -15,6 +15,8 @@
     * [Concurrency API improvements](#concurrency-api-improvements)
     * [Stream API](#stream-api)
       * [Filtering](#filtering)
+        * [filter()](#filter--)
+        * [distinct()](#distinct--)
       * [Slicing](#slicing)
         * [takeWhile](#takewhile)
         * [dropWhile](#dropwhile)
@@ -31,12 +33,20 @@
       * [Reducing](#reducing)
           * [Example 1 : Numbers](#example-1--numbers)
           * [Example 2 : String](#example-2--string)
+      * [Numeric stream](#numeric-stream)
+        * [Mapping to numeric stream](#mapping-to-numeric-stream)
+        * [Converting numeric stream to stream of object](#converting-numeric-stream-to-stream-of-object)
+        * [default values for OptionalInt](#default-values-for-optionalint)
+        * [Numeric range](#numeric-range)
+      * [Building streams](#building-streams)
         * [sorted](#sorted)
-      * [collecting](#collecting)
-        * [collectors](#collectors)
-        * [reducing and summarizing](#reducing-and-summarizing)
-        * [grouping](#grouping)
-        * [partitioning](#partitioning)
+    * [collecting data](#collecting-data)
+      * [collectors](#collectors)
+      * [reducing and summarizing](#reducing-and-summarizing)
+      * [grouping](#grouping)
+      * [partitioning](#partitioning)
+      * [collector interface](#collector-interface)
+      * [developing your own collector](#developing-your-own-collector)
     * [Collection API improvements](#collection-api-improvements)
       * [Collection factories](#collection-factories)
       * [removeIf](#removeif)
@@ -72,22 +82,19 @@
 <!-- TOC -->
 
 
-
-
-
 # Java
 ## Introduction
 In this article we will list Java Features by version 
-## Java 8
+## Java 8 (published March 2014)
 This is Java 8 features :
 ### Functional interface
 
-| Type      | Abstract Method | Argument | Return  |
-|-----------|-----------------|----------|---------|
-| Predicate | test (T)        | Yes      | boolean |
-| Function  | apply (T)       | Yes      | R       |
-| Consumer  | accept (T)      | Yes      | void    |
-| Supplier  | get()           | No       | T       |
+| Type      | Abstract Method | Argument | Return  | Method  |
+|-----------|-----------------|----------|---------|---------|
+| Predicate | test (T)        | Yes      | boolean | filter  |
+| Function  | apply (T)       | Yes      | R       | map     |
+| Consumer  | accept (T)      | Yes      | void    | forEach |
+| Supplier  | get()           | No       | T       |         |
 
 ### Lambda expressions
 ### Optional
@@ -109,6 +116,27 @@ is used to refer method of Functional interface, There are following types of me
 
 ### Stream API 
 #### Filtering
+##### filter()
+take predicate as argument
+- Example filter with predicate <br/>
+
+
+    List.stream()
+    .filter(u-> u.age()>23)
+    .forEach(System.out::println);
+    // return  User[id=3, name=test 2, age=26] User[id=2, name=test 3, age=24] User[id=4, name=test 4, age=28]
+
+
+##### distinct()
+return a stream with unique elements according to implementation of hashcode and equals methods of the object produced by the stream
+- Example filter unique element <br/>
+
+
+    Stream.of("A","B","C","A","C","D","","E")
+        .filter(Predicate.not(String::isBlank)) // return A, B, C, A, C, D, E
+        .distinct() // return A, B, C, D, E
+        .forEach(System.out::println); 
+
 #### Slicing
 ##### takeWhile
         
@@ -147,7 +175,45 @@ is used to refer method of Functional interface, There are following types of me
 
 #### Mapping
 ##### map
+map take function as argument this function is applied to each element
+
+    Stream.of("Apple","Banana","orange","Kiwi")
+          .map(String::length)
+          .forEach(System.out::println); // return 5, 6, 6, 4
 ##### FlatMap
+
+    public record Book(int id, String title, double price){
+    }
+    public record User(int id, String name, int age, List<Book> books) {
+    }
+
+    var book1 = new Book(1,"book 1",12.5);
+    var book2 = new Book(2,"book 2",17);
+    var book3 = new Book(3,"book 3",15);
+    var user1 = new User(1,"test 1",22, Arrays.asList(book1));
+    var user2 = new User(3,"test 2",26, Collections.EMPTY_LIST);
+    var user3 = new User(2,"test 3",24, Arrays.asList(book1,book2));
+    var user4 = new User(4,"test 4",28, Arrays.asList(book2, book3));
+
+    var userList = List.of(user1,user2, user3,user4);
+
+- Example 1 : list distinct books for all users
+
+
+    userList.stream()
+    .map(User::books)
+    .flatMap(Collection::stream)
+    .distinct()
+    .forEach(System.out::println); // return all unique books Book[id=1, title=book 1, price=12.5], Book[id=2, title=book 2, price=17.0], Book[id=3, title=book 3, price=15.0]
+
+- Example 2 : list distinct prices of books for all users
+
+
+    userList.stream()
+    .map(User::books)
+    .flatMap(lb -> lb.stream().map(Book::price))
+    .distinct()
+    .forEach(System.out::println); // return 12.5, 17.0, 15.0
 
 #### Finding and Matching
 ##### allMatch
@@ -207,6 +273,18 @@ concat string :
     letters.stream().reduce(String::concat); // return Optional[hello]
 
 
+#### Numeric stream
+##### Mapping to numeric stream
+mapToInt
+
+##### Converting numeric stream to stream of object
+.boxed
+
+##### default values for OptionalInt
+
+##### Numeric range
+
+#### Building streams
 #####  sorted
 
     List<String> letters = Arrays.asList("h","e","l","l","o");
@@ -214,15 +292,20 @@ concat string :
     letters.stream().sorted(Comparator.naturalOrder()).forEach(System.out::println); // ASC return e, h, l, l, o
     letters.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println); // DESC return o, l, l, h, e
 
-####  collecting
-#####  collectors
-#####  reducing and summarizing
-#####  grouping
-#####  partitioning
+###  collecting data
+####  collectors
+####  reducing and summarizing
+####  grouping
+####  partitioning
+####  collector interface
+####  developing your own collector
 
 ### Collection API improvements
 #### Collection factories
 
+- List factory  
+- Set factory  
+- Map factory  
 #### removeIf
 
 #### replaceAll

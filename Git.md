@@ -57,3 +57,19 @@ Step 8 : git flow hotfix finish v1.0.1 (after this command you will have conflit
 Step 9 : git push origin develop (it will push also tag v1.0.1) <br/>
 Step 10 : git push origin master <br/>
 Step 11 : git push origin --tags <br/>
+
+
+### get remote 
+    
+    git remote get-url origin
+    // Or 
+    git config --get remote.origin.url
+
+### set remote 
+        
+    // Set for the first time 
+    git remote add origin YOUR_URL
+    // example : git remote set-url origin https://bitbucket.org/imad/project-test.git
+    // OR change an existing 
+    // git remote set-url origin YOUR_URL
+    

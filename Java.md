@@ -35,6 +35,7 @@
           * [Example 2 : String](#example-2--string)
       * [Numeric stream](#numeric-stream)
         * [Mapping to numeric stream](#mapping-to-numeric-stream)
+          * [mapToInt()](#maptoint--)
         * [Converting numeric stream to stream of object](#converting-numeric-stream-to-stream-of-object)
         * [default values for OptionalInt](#default-values-for-optionalint)
         * [Numeric range](#numeric-range)
@@ -80,6 +81,10 @@
     * [Convert Map to List](#convert-map-to-list)
     * [Convert List to Set](#convert-list-to-set)
     * [Convert Set to List](#convert-set-to-list)
+    * [Java 18 (published March 2022)](#java-18--published-march-2022-)
+    * [Java 19 (published September 2022)](#java-19--published-september-2022-)
+    * [Java 20 (published March 2023)](#java-20--published-march-2023-)
+    * [Java 21 (published September 2023)](#java-21--published-september-2023-)
   * [Java questions](#java-questions)
     * [What is the difference between Checked vs Unchecked Exceptions in Java ?](#what-is-the-difference-between-checked-vs-unchecked-exceptions-in-java-)
       * [- Checked Exception :](#--checked-exception-)
@@ -280,12 +285,37 @@ concat string :
 
 #### Numeric stream
 ##### Mapping to numeric stream
-mapToInt
+###### mapToInt()
+
+
+    var user1 = new User(1,"test 1",22, Arrays.asList(book1));
+    var user2 = new User(3,"test 2",26, Collections.EMPTY_LIST);
+    var user3 = new User(2,"test 3",24, Arrays.asList(book1,book2));
+    var user4 = new User(4,"test 4",28, Arrays.asList(book2, book3));
+    var userList = List.of(user1,user2, user3,user4);
+
+    System.out.println("sum = "+userList.stream().mapToInt(User::age).sum()); // sum = 100
+    System.out.println("average = "+userList.stream().mapToInt(User::age).average()); // average = OptionalDouble[25.0]
+    System.out.println("max = "+userList.stream().mapToInt(User::age).max()); // max = OptionalInt[28]
+    System.out.println("min = "+userList.stream().mapToInt(User::age).min()); // min = OptionalInt[22]
 
 ##### Converting numeric stream to stream of object
-.boxed
+boxed () convert : <br/>
+- IntStream to Stream<Integer>
+- DoubleStream to Stream<Double>
+- LongStream to Stream<Long>
+
+
+    IntStream intStream = userList.stream().mapToInt(User::age);
+    Stream<Integer> stream = intStream.boxed();
 
 ##### default values for OptionalInt
+
+
+    var userList2 = new ArrayList<>(userList); // created new List because we can change immutable collection
+    userList2.clear();  // remove all elements
+    System.out.println("min = "+userList2.stream().mapToInt(User::age).min().orElse(0)); // min = 0
+
 
 ##### Numeric range
 
@@ -687,6 +717,12 @@ Example 2 with object
       Set<Integer> sourceSet = Sets.newHashSet(0, 1, 2, 3, 4, 5);
       List<Integer> targetList = List.copyOf(sourceSet);
 
+
+
+### Java 18 (published March 2022) 
+### Java 19 (published September 2022) 
+### Java 20 (published March 2023) 
+### Java 21 (published September 2023) 
 
 ## Java questions 
 

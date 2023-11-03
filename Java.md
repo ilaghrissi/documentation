@@ -723,6 +723,28 @@ Example 2 with object
 ### Java 19 (published September 2022) 
 ### Java 20 (published March 2023) 
 ### Java 21 (published September 2023) 
+#### Interpolation
+
+    Before
+    System.out.println("x : "+ x +" y : ": y);
+    With Java 21
+    System.out.println(STR."x : \{x} y : \{y}");
+
+#### pattern matching
+
+    record Employee(int id, double salary){}
+
+    Before
+    if (person instanceof Employee e) {
+      System.out.println("id : "+ e.id() +" salary : ": e.salary())
+    //...
+    }
+    with Java 21
+    if (person instanceof Employee(int id, double salary)) {
+      System.out.println("id : "+ id +" salary : ": salary)
+    //...
+    }
+#### pattern matching for switch
 
 ## Java questions 
 

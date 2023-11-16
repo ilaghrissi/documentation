@@ -16,7 +16,7 @@ Example :
     Your identification has been saved in C:\Users\imad/.ssh/id_rsa
     Your public key has been saved in C:\Users\imad/.ssh/id_rsa.pub
     The key fingerprint is:
-    SHA256:JhgHrg45hqVbMhf66MT/fMrdfgdftqrNxr5obGnaqoeJbQzs imad@DESKTOP-PDAE2H1
+    SHA256:JhgHrg45hqVbMhf66MT/fMrdfgdfgghtqrNxr5obGnaqoeJbQzs imad@DESKTOP-PDAE2H1
     The key's randomart image is:
     +---[RSA 3072]----+
     |                 |

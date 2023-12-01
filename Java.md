@@ -97,7 +97,7 @@
 
 # Java
 ## Introduction
-In this article we will list Java Features by version 
+In this article we will list Java Features by version.
 ## Java 8 (published March 2014)
 This is Java 8 features :
 ### Functional interface
@@ -753,10 +753,16 @@ Example 2 with object
 
 ### What is the difference between Checked vs Unchecked Exceptions in Java ?
 #### - Checked Exception : 
-the exceptions that are checked at compile time
+the exceptions that are checked at compile time.
 - fully checked exceptions : exception where all its child classes are also checked like IOException, and InterruptedException
 - partially checked exceptions : some of its child classes are unchecked, like an Exception 
 #### - UnChecked Exception : 
 These are the exceptions that are not checked at compile time Example : ArithmeticException, ArrayIndexOutOfBoundsException, NullPointerException 
 	
 	
+### SOLID Principles ?
+- (S) : Single responsibility => Class has one job to do
+- (O) : Open/closed => class is open for extension and closed for modification.
+- (L) : Liskov substitution => class can be replaced by any of its children without any problem. children classes inherit parent's behaviours.
+- (I) : Interface segregation => larger interfaces should be split into smaller ones. to avoid force class to use no needed methods.
+- (D) : Dependency inversion => decoupling dependencies between modules by using abstraction.
